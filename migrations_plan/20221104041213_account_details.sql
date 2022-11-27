@@ -1,0 +1,5 @@
+ALTER TABLE account
+ADD name VARCHAR(32) NOT NULL;
+
+ALTER TABLE account
+ADD description TEXT NOT NULL DEFAULT '';

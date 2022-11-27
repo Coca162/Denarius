@@ -1,0 +1,7 @@
+# Configuration
+.vscode/settings.json
+.env
+
+# Build Files
+Cargo.lock
+/target
