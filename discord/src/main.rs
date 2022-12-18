@@ -40,7 +40,7 @@ async fn balance(
     Ok(())
 }
 
-// Registers you as a new person
+/// Registers you as a new person
 #[poise::command(slash_command, prefix_command)]
 async fn register(
     ctx: Context<'_>
@@ -94,12 +94,11 @@ async fn main() {
                 ..Default::default()
             },
             commands: vec![age(), register(), balance(), register_commands(), help()],
-            
             ..Default::default()
         })
         .token(env::var("DISCORD_TOKEN").expect("Could not find discord token from environment variables!"))
         .intents(serenity::GatewayIntents::non_privileged().union(serenity::GatewayIntents::MESSAGE_CONTENT))
-        .user_data_setup(move |_ctx, _ready, _framework| Box::pin(async move { Ok(api) }));
+        .setup(|_ctx, _ready, _framework| Box::pin(async { Ok(api) }));
 
     framework.run().await.unwrap();
 }

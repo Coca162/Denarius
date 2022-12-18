@@ -46,7 +46,7 @@ pub async fn register(Path(discord_id): Path<u64>, State(db): State<PgPool>) -> 
 }
 
 pub async fn get_from_discord(Path(discord_id): Path<u64>, State(db): State<PgPool>) -> Result<String> {
-    let result = sqlx::query!("SELECT id FROM person WHERE person.discord_id = $1", &*DiscordId::from(discord_id))
+    let result = sqlx::query!("SELECT id FROM person WHERE person.discord_id = $1", &discord_id.to_be_bytes())
                             .fetch_optional(&db)
                             .await?
                             .ok_or(Error::NotFound("person"))?.id;
@@ -55,13 +55,13 @@ pub async fn get_from_discord(Path(discord_id): Path<u64>, State(db): State<PgPo
 }
 
 pub async fn get_from_uuid(Path(id): Path<Uuid>, State(db): State<PgPool>) -> Result<Json<PersonInfo>> {
-    let result = sqlx::query!("SELECT discord_id, balance FROM person INNER JOIN account ON account.id=person.id WHERE person.id = $1", id)
+    let result = sqlx::query!(r###"SELECT discord_id as "discord_id: DiscordId" , balance FROM person INNER JOIN account ON account.id=person.id WHERE person.id = $1"###, id)
                             .fetch_optional(&db)
                             .await?
                             .ok_or(Error::NotFound("person"))?;
 
     let result = PersonInfo {
-        discord_id: DiscordId::from(result.discord_id).into(),
+        discord_id: result.discord_id.into(),
         balance: result.balance,
     };
 

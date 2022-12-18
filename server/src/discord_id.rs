@@ -3,7 +3,9 @@ use std::convert::Into;
 use std::fmt;
 use std::ops::Deref;
 
-pub struct DiscordId([u8; 8]);
+#[derive(sqlx::Type, Debug)]
+#[sqlx(transparent)]
+pub struct DiscordId(pub [u8; 8]);
 
 impl Serialize for DiscordId {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
@@ -40,8 +42,8 @@ impl From<&DiscordId> for u64 {
     }
 }
 
-impl From<Vec<u8>> for DiscordId {
-    fn from(vec: Vec<u8>) -> Self {
+impl From<&[u8]> for DiscordId {
+    fn from(vec: &[u8]) -> Self {
         DiscordId(vec.try_into().unwrap())
     }
 }

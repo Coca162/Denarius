@@ -85,7 +85,7 @@ impl IntoResponse for Error {
         match self {
             Error::UUID(error) =>  (StatusCode::BAD_REQUEST, error.to_string()).into_response(),
             Error::NotFound(resource) => {
-                (StatusCode::NOT_FOUND, format!("Could not find {}", resource)).into_response()
+                (StatusCode::NOT_FOUND, format!("Could not find {resource}")).into_response()
             }
             Error::AlreadyExists(error) => (StatusCode::BAD_REQUEST, error).into_response(),
             Error::HttpError(status_code, msg) => (status_code, msg).into_response(),

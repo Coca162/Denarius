@@ -31,7 +31,7 @@ impl AekosiaAPI {
         AekosiaAPI {
             client,
             eco_balance: format_with_query(&website_url, "/eco/balance/", UUID),
-            eco_payment: format!("{}/eco/payment", website_url),
+            eco_payment: format!("{website_url}/eco/payment"),
             eco_print: format_with_query(&website_url, "/eco/print/", UUID + 1 + I64),
             person_register: format_with_query(&website_url, "/person/register/", I64),
             person_get: format_with_query(&website_url, "/person/", UUID),

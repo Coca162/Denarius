@@ -27,10 +27,9 @@ pub async fn payment(
 }
 
 pub async fn print_money(
-    queries: Path<(Uuid, i64)>,
+    Path((id, amount)): Path<(Uuid, i64)>,
     State(db): State<PgPool>,
 ) -> Result<&'static str> {
-    let (id, amount) = *queries;
 
     sqlx::query!(
         "UPDATE account SET balance = balance + $1 WHERE id = $2",

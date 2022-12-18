@@ -34,8 +34,6 @@ pub async fn main() {
         .await
         .expect("Failed to connect to database");
 
-
-
     let app = routes().with_state(pool);
 
     let addr = SocketAddr::from(([127, 0, 0, 1], 8080)); //127.0.0.1:8080
@@ -60,7 +58,7 @@ async fn index(State(db): State<PgPool>) -> Result<String> {
         .await?
         .count;
 
-    Ok(format!("Hello, world! Accounts: {}", result))
+    Ok(format!("Hello, world! Accounts: {result}"))
 }
 
 #[allow(clippy::unused_async)]
