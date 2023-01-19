@@ -12,16 +12,17 @@ tracing-subscriber = "0.3.16"
 poise = "0.5.2"
 env_logger = "0.10.0"
 shared = { path = "../shared" }
-reqwest = { version = "0.11.12", features = ["json", "rustls-tls"] }
+reqwest = { version = "0.11.14", features = ["json", "rustls-tls"] }
 
 [dependencies.tokio]
-version = "1.21.2"
+version = "1.24.2"
 features = ["macros", "signal", "rt-multi-thread"]
 
 [dependencies.serenity]
+version = "0.11.5"
 default-features = false
 features = ["builder", "client", "gateway", "model", "utils", "collector"]
 
 [dependencies.uuid]
-version = "1.2.1"
-features = [ "v7", "v4", "fast-rng", "serde" ]
+version = "1.2.2"
+features = [ "v7", "fast-rng", "serde" ]

@@ -4,10 +4,7 @@
 use dotenvy::dotenv;
 use shared::AekosiaAPI;
 use reqwest::Client;
-use tracing_subscriber::fmt::format;
 use std::env;
-use uuid::Uuid;
-use shared::routes::*;
 use env_logger;
 
 use poise::serenity_prelude as serenity;

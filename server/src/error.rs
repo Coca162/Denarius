@@ -96,8 +96,3 @@ impl IntoResponse for Error {
         }
     }
 }
-
-pub enum Example<T, B> {
-    Condition1(T),
-    Condition3(B)
-}
